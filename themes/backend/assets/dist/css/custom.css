@@ -1,0 +1,43 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .logo-page.img-preview {
+        height: 100px;
+        width: 100px;
+        position: relative;
+        overflow: hidden;
+        background-color: #9e9e9e;
+        color: #ecf0f1;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .example {background: orange;}
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .logo-page.img-preview {
+        height: 140px;
+        width: 140px;
+    }
+}
+
+
+.menu_editbutton_col {
+    padding-left: 0px;
+}
+
+.menuModalContent {
+    top: 100px;
+}
