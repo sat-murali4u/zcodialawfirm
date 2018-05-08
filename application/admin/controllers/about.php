@@ -91,7 +91,7 @@ class About extends CI_Controller {
         } else {
             $data['user_id'] = $this->tank_auth->get_user_id();
             $data['username'] = $this->tank_auth->get_username();
-            $data['about_items'] = $this->aboutus_model->getData('*', $this->aboutus_items, '', 'auti_id');
+            $data['about_us'] = $this->aboutus_model->getData('*', $this->aboutus_table, '', 'au_id');
             // echo '<pre>aboutus_items:';print_r($data);die;
 
             $this->load->view('header/header', $data);
@@ -271,17 +271,16 @@ class About extends CI_Controller {
         echo $inserted;
     }
 
-    function update_about_item() {
-
+    function update_about_item() { // About Us - form_submit - ajax request
         $inserted = 0;
         $date = new DateTime();
-        $abtItem_image = $actual_abtItem_image = $isAboutItemExists = '';
+        $abtItem_image = $actual_abtItem_image = $abtSideItem_image = $actual_abtSideItem_image = $isAboutUsExists = $isAboutItemExists = '';
         $foldername = 'About_Items';
 
-        if (!empty($_FILES['abtItem_image']['name'])) {
-            $info = new SplFileInfo($_FILES['abtItem_image']['name']);
+        if (!empty($_FILES['auti_image']['name'])) {
+            $info = new SplFileInfo($_FILES['auti_image']['name']);
             $abtItem_image = $date->getTimestamp() . 'abtItem_image.' . $info->getExtension();
-            if ($this->fileupload->uploadfile('abtItem_image', $abtItem_image, $foldername)) {
+            if ($this->fileupload->uploadfile('auti_image', $abtItem_image, $foldername)) {
                 if (isset($foldername) && !empty($foldername)) {
                     $upd_foldername = $foldername . '/';
                     $abtItem_image = 'uploads/' . $upd_foldername . $abtItem_image;
@@ -291,9 +290,31 @@ class About extends CI_Controller {
             }
         }
 
-        $aboutItem = array('auti_name' => $this->input->post('txtAbtItemMainHeader'),
-            'auti_content' => $this->input->post('txtAbtItemContent')
+        if (!empty($_FILES['au_side_image']['name'])) {
+            $info = new SplFileInfo($_FILES['au_side_image']['name']);
+            $abtSideItem_image = $date->getTimestamp() . 'au_side_image.' . $info->getExtension();
+            if ($this->fileupload->uploadfile('au_side_image', $abtSideItem_image, $foldername)) {
+                if (isset($foldername) && !empty($foldername)) {
+                    $upd_foldername = $foldername . '/';
+                    $abtSideItem_image = 'uploads/' . $upd_foldername . $abtSideItem_image;
+                } else {
+                    $abtSideItem_image = 'uploads/' . $abtSideItem_image;
+                }
+            }
+        }
+
+        $aboutUs = array('au_header_title' => $this->input->post('au_header_title'),
+            'au_content' => $this->input->post('au_content')
         );
+        if (isset($abtSideItem_image) && !empty($abtSideItem_image)) {
+            $aboutUs['au_side_image'] = cleanurl($abtSideItem_image);
+        }
+
+        $aboutItem = array('auti_name' => $this->input->post('auti_name'),
+            'auti_content' => $this->input->post('auti_content')
+        );
+        
+        $IsEmpty_aboutItem = array_filter($aboutItem);
 
         if (isset($abtItem_image) && !empty($abtItem_image)) {
             $aboutItem['auti_image'] = cleanurl($abtItem_image);
@@ -301,10 +322,11 @@ class About extends CI_Controller {
 
         $auti_id = $this->input->post('auti_id');
 
+        $isAboutUsExists = $this->aboutus_model->searchContent($this->aboutus_table, array('au_status' => 1, 'au_deleted' => 0));
+
+
         if (isset($auti_id) && !empty($auti_id)) { //update search
             $isAboutItemExists = $this->aboutus_model->searchContent($this->aboutus_items, array('auti_id' => $auti_id, 'auti_deleted' => 0)); //table, where
-        } else { //insert search
-            $isAboutItemExists = $this->aboutus_model->searchContent($this->aboutus_items, array('auti_status' => 1, 'auti_deleted' => 0)); //insert - table, where
         }
 
         if ($isAboutItemExists <> 0 && isset($auti_id) && !empty($auti_id)) {
@@ -319,11 +341,18 @@ class About extends CI_Controller {
                 }
             }
         }
-        if (empty($auti_id)) {
+
+        if ($isAboutUsExists == 0) {
+            $inserted = $this->aboutus_model->insertData($this->aboutus_table, $aboutUs);
+        } else if ($isAboutUsExists <> 0) {
+            $inserted = $this->aboutus_model->updateData($this->aboutus_table, $aboutUs, array('au_deleted' => 0, 'au_status' => 1));
+        }
+
+        if (empty($auti_id) && isset($IsEmpty_aboutItem) && !empty($IsEmpty_aboutItem)) {
             $inserted = $this->aboutus_model->insertData($this->aboutus_items, $aboutItem);
         } else {
 
-            if (isset($auti_id) && !empty($auti_id)) { //update
+            if (isset($auti_id) && !empty($auti_id) && isset($IsEmpty_aboutItem) && !empty($IsEmpty_aboutItem)) { //update
                 $inserted = $this->aboutus_model->updateData($this->aboutus_items, $aboutItem, array('auti_id' => $auti_id, 'auti_deleted' => 0)); //table, where
             }
         }
@@ -426,7 +455,7 @@ class About extends CI_Controller {
             foreach ($aitems_list as $key => $value) {
                 $value['auti_name'] = character_limiter($value['auti_name'], 30);
                 $value['auti_content'] = $value['auti_content'];
-                $value['auti_image'] = '<img class="dt_image ' . (!file_exists($value['auti_image']) ? 'no_image' : '') . '"  src="' . ((file_exists($value['auti_image'])) ? $value['auti_image'] : 'themes/backend/assets/dist/img/noimage.png') . '" />';
+                $value['auti_image'] = '<img class="dt_image_ai ' . (!file_exists($value['auti_image']) ? 'no_image' : '') . '"  src="' . ((file_exists($value['auti_image'])) ? $value['auti_image'] : 'themes/backend/assets/dist/img/noimage.png') . '" />';
                 $value['action'] = '<a onclick="getItemDetails($(this));" auti_id="' . $value['auti_id'] . '" class="edit_aboutitems btn"><i class="fa fa-pencil"></i></a>' . '<a onclick="delItemDetails($(this));" class="btn open_popup_modal" auti_id=' . $value['auti_id'] . '  data-toggle="modal" data-target="#modal-delete_abtitems"><i class="fa fa-trash-o"></i></a>';
                 $value['auti_status'] = '<a class="dt_action_switch"><label class="switch"><input type="checkbox" ' . ($value['auti_status'] == 1 ? ' checked' : '') . ' onclick="change_dt_ai_status($(this));" auti_id="' . $value['auti_id'] . '" auti_status="' . $value['auti_status'] . '"><span class="slider round"></span></label></a>';
                 unset($value['auti_id']);

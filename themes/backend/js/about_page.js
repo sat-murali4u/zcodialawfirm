@@ -120,21 +120,33 @@ function aboutitem_submit(thss) {
     var error = false;
     var auti_id = $(thss).attr('auti_id');
 
-    var txtAbtItemMainHeader = $("#txtAbtItemMainHeader").val();
-    var txtAbtItemContent = $("textArea#txtAbtItemContent").val();
-    if (!txtAbtItemMainHeader) {
-        info_msg('Item Main Header text is empty');
+    var txtAbtUsMainHeader = $("#txtAbtUsMainHeader").val();
+    var txtAbtUsMainDesc = $("textArea#txtAbtUsMainDesc").val();
+
+    var txtAbtItemHeader = $("#txtAbtItemHeader").val();
+    var txtAbtItemContent = $("#txtAbtItemContent").val();
+    if (!txtAbtUsMainHeader) {
+        info_msg('About Us Main Header text is empty');
         error = true;
-    } else if (!txtAbtItemContent) {
-        info_msg('Item Content is empty');
+    } else if (!txtAbtUsMainDesc) {
+        info_msg('About Us Description is empty');
+        error = true;
+    } else if (!txtAbtItemHeader && !txtAbtUsMainHeader && !txtAbtUsMainDesc) {
+        info_msg('About Item Header text is empty');
+        error = true;
+    } else if (!txtAbtItemContent && !txtAbtUsMainHeader && !txtAbtUsMainDesc) {
+        info_msg('About Item Content is empty');
         error = true;
     }
 
     if (error == false) {
         var form_data = new FormData();
-        form_data.append('txtAbtItemMainHeader', txtAbtItemMainHeader);
-        form_data.append('txtAbtItemContent', txtAbtItemContent);
-        form_data.append('abtItem_image', $('#imgAbtItemUpload').prop('files')[0]);
+        form_data.append('au_header_title', txtAbtUsMainHeader);
+        form_data.append('au_content', txtAbtUsMainDesc);
+        form_data.append('auti_name', txtAbtItemHeader);
+        form_data.append('auti_content', txtAbtItemContent);
+        form_data.append('auti_image', $('#imgAbtItemUpload').prop('files')[0]);
+        form_data.append('au_side_image', $('#imgAbtSideItemUpload').prop('files')[0]);
         if (typeof (auti_id) !== 'undefined') {
             form_data.append('auti_id', auti_id);
         } else {
@@ -148,7 +160,7 @@ function aboutitem_submit(thss) {
             processData: false,
             success: function (data) {
                 if (data == 1) {
-                    $("#txtAbtItemMainHeader").val("");
+                    $("#txtAbtItemMainHeader,#txtAbtItemHeader").val("");
                     clearEditor("#txtAbtItemContent");
 
                     document.getElementById("imgAbtItemUpload").value = "";
@@ -534,7 +546,7 @@ function getItemDetails(thss) { //getting aboutus item details to edit
         {
             // console.log(msg);
             var myObj = jQuery.parseJSON(msg);
-            $("#txtAbtItemMainHeader").val(myObj[0].auti_name);
+            $("#txtAbtItemHeader").val(myObj[0].auti_name)
             $('#imgAbtItemPreview').css("background-image", 'url(' + myObj[0].auti_image + ')').css("background-position", 'center').css("background-repeat", 'no-repeat').css("background-size", "contain");
             $(".btnUpdateAboutItem").attr("auti_id", myObj[0].auti_id);
             fillEditor('#txtAbtItemContent', myObj[0].auti_content);

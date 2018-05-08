@@ -5848,7 +5848,7 @@ textarea#txtAbtTLSubHeader {
 }
 .img-preview-outer{position:relative;}
 .deletePreview.logo-page{position:absolute;right: -8px;top: -23px;}
-#imgAbtItemPreview,#imgAbtSidePreview,#imgAbtSliderPreview,#imgHomeTMSSliderPreview,#imgHomeTMSSliderSignPreview, #imgAbtTLItemPreview, 
+#imgAbtSideItemPreview,#imgAbtItemPreview,#imgAbtSidePreview,#imgAbtSliderPreview,#imgHomeTMSSliderPreview,#imgHomeTMSSliderSignPreview, #imgAbtTLItemPreview, 
 #imgHomeTMPreview, #imgHomeSliderPreview,#imgHomeCounterPreview, #imgHomeSliderSignPreview, #imgHomeTMBGPreview, #imgAttySkillTypePreview,#imgAttySkillBGPreview,
 #imgPAPreview,#imgAttyExperienceTypePreview, #imgAttyExperienceSignPreview, #imgAttyExperienceBGPreview,  #imgPASliderPreview, #imgPASidePreview, #imgPATPreview,
 #imgContactPreview,#imgHSBButtonImagePreview,#imgAbtAttyItemPreview,#imgAbtAttyBGItemPreview ,#imgAttyPreview,#imgAttyWCUTypePreview,
@@ -5864,7 +5864,7 @@ textarea#txtAbtTLSubHeader {
     height: 170px;
     width: 170px;
 }
-#imgAbtSidePreview input,#imgAbtSliderPreview input,#imgAbtItemPreview input, #imgAbtTLItemPreview input,
+#imgAbtSidePreview input,#imgAbtSliderPreview input,#imgAbtSideItemPreview input, #imgAbtItemPreview input, #imgAbtTLItemPreview input,
 #imgHomeTMSSliderPreview input,#imgHomeTMSSliderSignPreview input,#imgHomeTMPreview input, #imgHomeSliderPreview input,#imgHomeCounterPreview input,
 #imgHomeSliderSignPreview input, #imgHomeTMBGPreview Input, #imgPAPreview Input,  #imgAttyPreview Input, #imgAttySkillTypePreview Input,#imgAttySkillBGPreview Input,
 #imgPASliderPreview Input,#imgAttyExperienceTypePreview input, #imgAttyExperienceSignPreview input, #imgAttyExperienceBGPreview input, 
@@ -5878,7 +5878,7 @@ textarea#txtAbtTLSubHeader {
     z-index: 10;
 }
 
-#imgAbtSidePreview label,#imgAbtSliderPreview label,#imgAbtItemPreview label, #imgAbtTLItemPreview label,
+#imgAbtSidePreview label,#imgAbtSliderPreview label,#imgAbtSideItemPreview label, #imgAbtItemPreview label, #imgAbtTLItemPreview label,
 #imgHomeTMSSliderPreview label,#imgHomeTMSSliderSignPreview label,#imgHomeTMPreview label, #imgHomeSliderPreview label,#imgHomeCounterPreview label, #imgAttyPreview label,
 #imgHomeSliderSignPreview label, #imgHomeTMBGPreview label, #imgPAPreview label, #imgAttySkillTypePreview label,#imgAttySkillBGPreview label,
 #imgPASliderPreview label,#imgAttyExperienceTypePreview label, #imgAttyExperienceSignPreview label, #imgAttyExperienceBGPreview label, 
@@ -5902,7 +5902,11 @@ textarea#txtAbtTLSubHeader {
     margin: auto;
     text-align: center;
 }
-
+textarea#txtAbtUsMainDesc {
+    height: 80px;
+    resize: none;
+    width: 100%;
+}
 img.dt_image {
     /*  height: 90px;*/
 }
@@ -5934,7 +5938,7 @@ div#ailist_dt_paginate {
 div#ailist_dt_info {
     padding-left: 5px;
 }
-img.dt_image_wcu,img.dt_image_atty,img.dt_image_tms {
+img.dt_image_wcu,img.dt_image_atty,img.dt_image_tms,img.dt_image_ai {
     width: 70px;
 }
 img.dt_image_contact.no_image {

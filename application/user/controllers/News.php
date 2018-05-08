@@ -77,7 +77,7 @@ class News extends CI_Controller {
         $this->data['wcu_types'] = $this->news_model->getData('*', $this->wcuTypes_table, array('wcu_type_status' => 1, 'wcu_type_deleted' => 0), 'wcu_type_id', 3);
         $this->data['disclaimer'] = $this->news_model->getData('*', $this->disclaimer_table, array('disclaimer_status' => 1, 'disclaimer_deleted' => 0), 'disclaimer_id', 3);
         $this->data['seo_header'] = $this->news_model->getData('*', $this->seo_header_table, array('sh_status' => 1, 'sh_deleted' => 0), 'sh_id');
-        $this->data['seo_page'] = $this->news_model->getData('*', $this->seo_page_table, array('sp_name' => ($this->uri->segment(1) == '' ? 'Home' : ''), 'sp_status' => 1, 'sp_deleted' => 0));
+        $this->data['seo_page'] = $this->news_model->getData('*', $this->seo_page_table, array('sp_name' => ($this->uri->segment(1) == 'news' ? 'News' : ''), 'sp_status' => 1, 'sp_deleted' => 0));
         $this->data['footer_submenus'] = $this->news_model->getSubMenus();
         $this->data['google_map_entries'] = $this->news_model->getData('*', $this->map_table, array('map_status' => 1, 'map_deleted' => 0));
     }
@@ -107,7 +107,7 @@ class News extends CI_Controller {
 //        $mycom = ob_get_contents();
 //        ob_clean();
 
-        $this->data['news_feed'] = $this->unique_multidim_array($this->news_model->getData('*', $this->newsfeed_table, '', 'nf_id', 1, 14), 'uuid');
+        $this->data['news_feed'] = $this->unique_multidim_array($this->news_model->getData('*', $this->newsfeed_table, '', 'nf_id', 1, 7), 'uuid');
         // $this->data['news_feed'] = $this->unique_multidim_array($this->data['news_feed'], 'uuid');
         $this->load->view('template/header', $this->data);
         //$this->load->view('news_part/blog', $this->data);
@@ -115,34 +115,56 @@ class News extends CI_Controller {
         $this->load->view('template/footer', $this->data);
     }
 
-    function singlepage() {
+    function single_page() {
+
+        $this->data['news_feed'] = $this->unique_multidim_array($this->news_model->getData('*', $this->newsfeed_table, '', 'nf_id', 1, 14), 'uuid');
+
+        $result = $this->news_model->getData('*', $this->newsfeed_table, array('nf_id' => $this->encrypt->decode(str_replace(' ', '+', $_GET['id']))));
+        if (isset($result) && !empty($result)) {
+            $thread = json_decode($result[0]['thread'], true);
+
+            $date = new DateTime(substr($thread['published'], 0, -6), new DateTimeZone('UTC'));
+            $date->setTimezone(new DateTimeZone(substr($thread['published'], -6)));
+
+            $result = array(
+                'main_image' => $thread['main_image'],
+                'published_date' => $date->format('M j, Y'),
+                'title' => $thread['title'],
+                'text' => $result[0]['text']
+            );
+
+            $this->data['single_page'] = $result;
+        }
+
         $this->load->view('template/header', $this->data);
         $this->load->view('news_part/singlepage', $this->data);
         $this->load->view('template/footer', $this->data);
     }
 
     function view_news() {
-
+        $limit = '';
         $this->load->library('table');
 
         if ($this->uri->segment(3) != 'update') {
             if ($this->uri->segment(3) != '') {
                 $limit = $this->uri->segment(3);
             } else {
-                $limit = '0';
+                $limit = 10;
             }
         } else {
-            $limit = '0';
+            $limit = 10;
         }
+        $query_slider = $this->db->query("SELECT * FROM `news_feed` where news_feed.deleted = 0 order by news_feed.nf_id desc LIMIT 10");
 
-        $query = $this->db->query("SELECT * FROM `news_feed` where news_feed.deleted=0 order by news_feed.nf_id desc LIMIT " . $limit . ",8");
-        $query1 = $this->db->query("SELECT * FROM `news_feed` where news_feed.deleted=0 order by news_feed.nf_id desc");
-        $result = $query->result_array();
-
-        $this->data['news_feed'] = $this->unique_multidim_array($result, 'uuid');
-
+        $query_feed = $this->db->query("SELECT * FROM `news_feed` where news_feed.deleted=0 order by news_feed.nf_id desc LIMIT " . $limit . ",16");
+        $query_feed1 = $this->db->query("SELECT * FROM `news_feed` where news_feed.deleted=0 order by news_feed.nf_id desc");
+        $result_slider = $query_slider->result_array();
+        $result_feed = $query_feed->result_array();
+        $this->data['news_slider'] = $this->unique_multidim_array($result_slider, 'uuid');
+        $this->data['news_feed'] = $this->unique_multidim_array($result_feed, 'uuid');
+      
         $row_count = 1;
-        $total_rows = count($this->unique_multidim_array($query1->result_array(), 'uuid'));
+        $total_rows = count($this->unique_multidim_array($query_feed1->result_array(), 'uuid'));
         $this->data['pagination'] = '';
         $config['per_page'] = 9;
         $next_page = $config['per_page'] + $limit;
@@ -169,14 +191,12 @@ class News extends CI_Controller {
             $this->data['pagination'] = $this->pagination->create_links();
         }
 
-        // $this->data['news_feed'] = $this->unique_multidim_array($this->news_model->getData('*', $this->newsfeed_table, '', 'nf_id', $limit, 14), 'uuid');
-        // $this->data['news_feed'] = $this->unique_multidim_array($this->data['news_feed'], 'uuid');
         $this->load->view('template/header', $this->data);
-        $this->load->view('news_part/blog', $this->data);
+        $this->load->view('news_part/news', $this->data);
         $this->load->view('template/footer', $this->data);
     }
 
-    public function single_page() {
+    public function single_page_old() {
         $this->data['news_feed'] = $this->unique_multidim_array($this->news_model->getData('*', $this->newsfeed_table, '', 'nf_id', 1, 14), 'uuid');
 
         $result = $this->news_model->getData('*', $this->newsfeed_table, array('nf_id' => $this->encrypt->decode(str_replace(' ', '+', $_GET['id']))));

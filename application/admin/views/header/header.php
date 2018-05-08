@@ -335,7 +335,7 @@ if (isset($logo_details) && isset($logo_details)) {
                                         echo "active";
                                     }
                                     ?>"><a href="admin.php/about/myself"><i class="fa fa-angle-double-right"></i>About Me</a></li>                                    
-                                    <li class="hide <?php
+                                    <li class=" <?php
                                     if ($this->uri->segment(2) == "items") {
                                         echo "active";
                                     }

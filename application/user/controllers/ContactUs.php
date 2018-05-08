@@ -28,7 +28,7 @@ class ContactUs extends CI_Controller {
         $data['footer_about'] = $this->contactus_model->getData('c_content', 'contactus', array('c_name' => 'footer_content', 'c_status' => 1, 'c_deleted' => 0, 'c_type' => 1));
         $data['disclaimer'] = $this->contactus_model->getData('*', $this->disclaimer_table, array('disclaimer_status' => 1, 'disclaimer_deleted' => 0), 'disclaimer_id', 3);
         $data['seo_header'] = $this->contactus_model->getData('*', $this->seo_header_table, array('sh_status' => 1, 'sh_deleted' => 0), 'sh_id');
-        $data['seo_page'] = $this->contactus_model->getData('*', $this->seo_page_table, array('sp_name' => ($this->uri->segment(1) == '' ? 'Home' : ''), 'sp_status' => 1, 'sp_deleted' => 0));
+        $data['seo_page'] = $this->contactus_model->getData('*', $this->seo_page_table, array('sp_name' => ($this->uri->segment(1) == 'contactus' ? 'ContactUs' : ''), 'sp_status' => 1, 'sp_deleted' => 0));
         $data['footer_submenus'] = $this->contactus_model->getSubMenus();
         $data['google_map_entries'] = $this->contactus_model->getData('*', $this->map_table, array('map_status' => 1, 'map_deleted' => 0));
         $data['contactus_contact'] = $this->contactus_model->getData('c_content', 'contactus', array('c_name' => 'contactus_content', 'c_status' => 1, 'c_deleted' => 0, 'c_type' => 1));

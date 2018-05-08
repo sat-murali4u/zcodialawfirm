@@ -1,10 +1,10 @@
 <!-- Main content -->
 <?php
-$aiHeaderTitle = $aiContent = $aiContentImage = '';
-if (isset($about_me) && !empty($about_me)) {
-    $aiHeaderTitle = $about_me[0]['ai_header_title'];
-    $aiContent = $about_me[0]['ai_content'];
-    $aiContentImage = $about_me[0]['ai_content_image'];
+$auHeaderTitle = $auDesc = $auSideImage = '';
+if (isset($about_us) && !empty($about_us)) {
+    $auHeaderTitle = $about_us[0]['au_header_title'];
+    $auDesc = $about_us[0]['au_content'];
+    $auSideImage = $about_us[0]['au_side_image'];
 }
 ?>
 <section class="content-header">
@@ -33,17 +33,30 @@ if (isset($about_me) && !empty($about_me)) {
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="txtAbtItemMainHeader">Item Header</label>
-                        <input type="text" class="form-control AbtItemMainHeader" id="txtAbtItemMainHeader" value="<?php //echo $auHeaderTitle;    ?>">
+                        <label for="txtAbtUsMainHeader">Main Header</label>
+                        <input type="text" class="form-control AbtUsMainHeader" id="txtAbtUsMainHeader" value="<?php echo $auHeaderTitle; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtAbtUsMainDesc">Main Description</label>
+                        <textarea class="form-control AbtUsMainDesc" id="txtAbtUsMainDesc"><?php echo $auDesc; ?></textarea>
                     </div>
                     <div class="form-group au_header_bgimage">
                         <div class="row">
-                            <div class="col-md-12 col-sm-6 col-lg-7 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                                 <label>Item Image</label>
                                 <div class="imgAbtItemPreviewOuter">
                                     <div id="imgAbtItemPreview">
                                         <label for="imgAbtItemUpload" id="imgAbtItemLabel">Choose File</label>
-                                        <input type="file"  class="imgAbtItemUpload" name="imgAbtItemUpload" id="imgAbtItemUpload"  value="<?php //echo $auSliderImage;    ?>"  accept="image/gif,image/jpeg,image/png" />
+                                        <input type="file"  class="imgAbtItemUpload" name="imgAbtItemUpload" id="imgAbtItemUpload"    accept="image/gif,image/jpeg,image/png" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                                <label>About Me Side Image</label>
+                                <div class="imgAbtSideItemPreviewOuter">
+                                    <div id="imgAbtSideItemPreview">
+                                        <label for="imgAbtSideItemUpload" id="imgAbtSideItemLabel">Choose File</label>
+                                        <input type="file"  class="imgAbtSideItemUpload" name="imgAbtSideItemUpload" id="imgAbtSideItemUpload"  value="<?php echo $auSideImage; ?>"  accept="image/gif,image/jpeg,image/png" />
                                     </div>
                                 </div>
                             </div>
@@ -53,8 +66,12 @@ if (isset($about_me) && !empty($about_me)) {
                 <!-- /.col -->
                 <div class="col-md-7">
                     <div class="form-group">
+                        <label for="txtAbtItemHeader">List Header</label>
+                        <input type="text" class="form-control AbtItemHeader" id="txtAbtItemHeader" >
+                    </div>
+                    <div class="form-group">
                         <label for="txtAbtItemContent">Item Content</label>
-                        <textarea class="form-control aboutme-content abtItemContent" id="txtAbtItemContent"><?php //echo $auContent;    ?></textarea>
+                        <textarea class="form-control aboutme-content abtItemContent" id="txtAbtItemContent"></textarea>
                     </div>
                     <!-- /.form-group -->
                 </div>

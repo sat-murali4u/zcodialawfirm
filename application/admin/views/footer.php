@@ -245,6 +245,10 @@
             $('#imgAttySkillBGLabel').html("CHANGE FILE");
         }
 
+        if ($.trim($('#imgAbtSideItemUpload').attr('value')) !== '' && $.trim($('#imgAbtSideItemUpload').attr('value')) !== 'undefined') {
+            $('#imgAbtSideItemPreview').css("background-image", 'url(' + $('#imgAbtSideItemUpload').attr('value') + ')').css("background-position", 'center').css("background-repeat", 'no-repeat').css("background-size", "contain");
+            $('#imgAbtSideItemLabel').html("CHANGE FILE");
+        }
 
         /* appointment page -start */
         if ($.trim($('#imgHeaderApptPhoneUpload').attr('value')) !== '' && $.trim($('#imgHeaderApptPhoneUpload').attr('value')) !== 'undefined') {
@@ -307,7 +311,11 @@
 
         /* images for logo - end */
 
-
+        $.uploadPreview({
+            input_field: "#imgAbtSideItemUpload",
+            preview_box: "#imgAbtSideItemPreview",
+            label_field: "#imgAbtSideItemLabel"
+        });
         $.uploadPreview({
             input_field: "#imgGMapMarkerUpload",
             preview_box: "#imgGMapMarkerPreview",

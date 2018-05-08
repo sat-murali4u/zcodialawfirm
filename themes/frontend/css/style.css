@@ -3715,7 +3715,7 @@ body.active #mobile-nav {
 }
 
 .accodian-4-item.active .accodian-4-head::after {
-    border-color: #486b8b;
+    border-color: #212529;
 }
 
 .accodian-4-item.active .accodian-4-head h5 {
@@ -11162,7 +11162,7 @@ div#modal-body-disclaimer {
         transform: translateY(-50%);
         top: 55%;
         position: absolute;
-        left: 692px;
+        /*left: 692px;*/
     }
 }
 

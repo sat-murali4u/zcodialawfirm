@@ -1,12 +1,23 @@
 <!-- BreadCrumb Part Start -->
 <!--<script type="text/javascript" src="themes/frontend/news_part/js/df983.js"></script>-->
 <link rel="stylesheet" type="text/css" href="themes/frontend/news_part/css/responsive.css">
+
+<?php
+$thread = '';
+if (isset($news_feed) && !empty($news_feed)) {
+
+//    echo '<pre>';
+//    print_r($news_feed);
+//    echo '</pre>';
+//    die;
+}
+?>
 <div class="bc-style2">
     <div class="bc-title">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>OUR <span>blog</span> PAGE</h2>
+                    <h2><span>LEGAL</span> NEWS</h2>
                 </div>
             </div>
         </div>
@@ -49,71 +60,53 @@
                         <div class="col-md-12 ">
 
                             <div class="singlecenter" data-autoplay="true">
+                                <?php
+                                $thread = '';
+                                if (isset($news_slider) && !empty($news_slider)) {
+                                    $l1 = 0;
+                                    $index = 0;
+                                    foreach ($news_slider as $key_nf => $value_nf) {
+                                        $nf_id = $value_nf['nf_id'];
+                                        $thread = json_decode($value_nf['thread'], true);
+                                        $text = stripslashes($value_nf['text']);
+                                        if (isset($thread) && !empty($thread)) {
+                                            $published_date = substr($thread['published'], 0, -6);
+                                            $timezone = substr($thread['published'], -6);
+                                            $date = new DateTime($published_date, new DateTimeZone('UTC'));
+                                            $date->setTimezone(new DateTimeZone($timezone));
+                                            $updated_published_date = $date->format('M j, Y');
+                                            ?>
+                                            <div class="item <?php echo (isset($thread['main_image']) && !empty($thread['main_image']) ? 'has-bg-image' : 'no-image'); ?>" img_name="<?php echo $thread['main_image']; ?>">
+                                                <div class="col-xs-12 col-md-12 no-padding">
+                                                    <article class="post slider-style1 post-383 type-post status-publish format-quote has-post-thumbnail hentry category-travel tag-considerably tag-especially tag-europe tag-international post_format-post-format-quote">
+                                                        <figure class="post-item">
+                                                            <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), '<div class="overlay"></div><img src="' . $thread["main_image"] . '" class="img" width="1241" height="623" alt="" />'); ?>
 
-                                <div class="item ">
-                                    <div class="col-xs-12 col-md-12 no-padding">
-                                        <article class="post slider-style1 post-383 type-post status-publish format-quote has-post-thumbnail hentry category-travel tag-considerably tag-especially tag-europe tag-international post_format-post-format-quote">
-                                            <figure class="post-item">
-                                                <a href="2017/10/06/t-cont-2-2/index.html" title="In Kiev, a Stylish and Surprising City">
-                                                    <div class="overlay"></div>
-                                                    <img src="themes/frontend/news_part/images/2017/10/banner_car-1241x623.jpg" class="img" width="1241" height="623" alt="banner_car" />
-                                                </a>
-                                            </figure>
-                                            <header class="post-head">
-                                                <h1 class="post-title"><a href="2017/10/06/t-cont-2-2/index.html" rel="bookmark">In Kiev, a Stylish and Surprising City</a></h1>
-                                                <aside class="post-meta">
-                                                    <a href="category/travel/index.html" class="post-category category-link-bg-5" title="View all posts in TRAVEL">TRAVEL</a> </aside>
-                                                <div class="post-content">
-                                                    Early Western travelers, traveling whether to Persia, Turkey, India, or China, would frequently remark on the absence of change in... </div>
-                                                <div class="read-more"><a href="2017/10/06/t-cont-2-2/index.html">Read More</a></div>
-                                            </header>
-                                        </article>
-                                    </div>
-                                </div>
-
-                                <div class="item ">
-                                    <div class="col-xs-12 col-md-12 no-padding">
-                                        <article class="post slider-style1 post-1132 type-post status-publish format-quote has-post-thumbnail hentry category-travel tag-new tag-seaweed tag-stair tag-think post_format-post-format-quote">
-                                            <figure class="post-item">
-                                                <a href="2018/02/11/south-dakota-we-are-heading-west-big-time/index.html" title="South Dakota, we are heading West big time!">
-                                                    <div class="overlay"></div>
-                                                    <img src="themes/frontend/news_part/images/2018/03/night_city_new-1241x623.jpg" class="img" width="1241" height="623" alt="night_city_new" />
-                                                </a>
-                                            </figure>
-                                            <header class="post-head">
-                                                <h1 class="post-title"><a href="2018/02/11/south-dakota-we-are-heading-west-big-time/index.html" rel="bookmark">South Dakota, we are heading West big time!</a></h1>
-                                                <aside class="post-meta">
-                                                    <a href="category/travel/index.html" class="post-category category-link-bg-5" title="View all posts in TRAVEL">TRAVEL</a> </aside>
-                                                <div class="post-content">
-                                                    If you’re like us, you tend to overreact when you notice anything new or strange going on with your body.... </div>
-                                                <div class="read-more"><a href="2018/02/11/south-dakota-we-are-heading-west-big-time/index.html">Read More</a></div>
-                                            </header>
-                                        </article>
-                                    </div>
-                                </div>
-
-                                <div class="item no-image">
-                                    <div class="col-xs-12 col-md-12 no-padding">
-                                        <article class="post slider-style1 post-406 type-post status-publish format-quote has-post-thumbnail hentry category-travel tag-breath tag-ignore tag-staircase tag-think post_format-post-format-quote">
-                                            <figure class="post-item">
-                                                <a href="2017/10/06/t-cont-14/index.html" title="How Men Can Fight Toxic Masculinity and Rape Culture">
-                                                    <div class="overlay"></div>
-                                                    <img src="themes/frontend/news_part/images/2017/10/t14_slider-1241x623.jpg" class="img" width="1241" height="623" alt="t14_slider" />
-                                                </a>
-                                            </figure>
-                                            <header class="post-head no-image">
-                                                <h1 class="post-title"><a href="2017/10/06/t-cont-14/index.html" rel="bookmark">How Men Can Fight Toxic Masculinity and Rape Culture</a></h1>
-                                                <aside class="post-meta no-image">
-                                                    <a href="category/travel/index.html" class="post-category category-link-bg-5" title="View all posts in TRAVEL">TRAVEL</a> 
-                                                </aside>
-                                                <div class="post-content">
-                                                    If you’re like us, you tend to overreact when you notice anything new or strange going on with your body.... 
+                                                        </figure>
+                                                        <header class="post-head <?php echo (isset($thread['main_image']) && !empty($thread['main_image']) ? 'has-bg-image' : 'no-image'); ?>">
+                                                            <h1 class="post-title">
+                                                                <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), stripcslashes($thread['title']), array('rel' => 'bookmark')); ?>
+                                                            </h1>
+                                                            <aside class="post-meta <?php echo (isset($thread['main_image']) && !empty($thread['main_image']) ? 'has-bg-image' : 'no-image'); ?>">
+                                                                <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), 'TRAVEL', array('class' => 'post-category category-link-bg-5', 'title' => 'View all posts in TRAVEL')); ?>
+                                                            </aside>
+                                                            <div class="post-content">
+                                                                <?php echo character_limiter($text, 150); ?> </div>
+                                                            <div class="read-more">
+                                                                <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), 'Read More'); ?>
+                                                            </div>
+                                                        </header>
+                                                    </article>
                                                 </div>
-                                                <div class="read-more"><a href="2017/10/06/t-cont-14/index.html">Read More</a></div>
-                                            </header>
-                                        </article>
-                                    </div>
-                                </div>
+                                            </div>
+                                            <?php
+//                                            if ($thread['main_image'] = '')
+//                                            break;
+                                        }
+                                    }
+                                }
+                                ?>
+
 
 
                             </div>
@@ -132,7 +125,7 @@
 </div>
 <section class="module highlight" wp-site-content wp-body-class wp-site-name wp-title wp-site-desc wp-header-image> 
     <div class="container"> 
-        <div class="module-title"> 
+        <div class="module-title hide"> 
             <h3 class="title"><span class="bg-1">World News</span></h3> 
             <h3 class="subtitle">Watch the latest news</h3> 
         </div>                         
@@ -142,194 +135,61 @@
             <div class="col-sm-6 col-md-6"> 
                 <!--========== BEGIN .NEWS ==========-->                                 
                 <div class="news"> 
-                    <!-- Begin .item -->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image01.jpg" alt="">
-                            </a>
-                            <span><a class="label-1" href="news.html">News</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Migrant</strong> Crisis</a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">The proposal involves resettling one Syrian refugee in Europe for each</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">The U.N. says the mass return of refugees to a third country would</a></p> 
-                            <div>
-                                <a href="news.html" target="_blank"><span class="read-more">News</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item -->                                     
-                    <!-- Begin .item -->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image02.jpg" alt="">
-                            </a>
-                            <span><a class="label-3" href="politics.html">Politics</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Smith's</strong> Team</a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Democratic presidential candidate Smith speaks with supporters...</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">On International Women’s Day, we celebrate women around the world...</a></p> 
-                            <div>
-                                <a href="politics.html" target="_blank"><span class="read-more">Politics</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item -->                                     
+                    <?php
+                    $thread = '';
+                    if (isset($news_feed) && !empty($news_feed)) {
+                        $l1 = 0;
+                        foreach ($news_feed as $key_nf => $value_nf) {
+                            $nf_id = $value_nf['nf_id'];
+                            $thread = json_decode($value_nf['thread'], true);
+                            $text = $value_nf['text'];
+                            if (isset($thread) && !empty($thread)) {
+                                $published_date = substr($thread['published'], 0, -6);
+                                $timezone = substr($thread['published'], -6);
+                                $date = new DateTime($published_date, new DateTimeZone('UTC'));
+                                $date->setTimezone(new DateTimeZone($timezone));
+                                $updated_published_date = $date->format('M j, Y');
+                                ?>
+                                <!-- Begin .item -->                                     
+                                <div class="item"> 
+                                    <div class="item-image-1">
+                                        <a class="img-link" href="#">
+                                            <img class="img-responsive img-full" src="<?php echo ($thread['main_image'] == '' ? 'themes/backend/assets/dist/img/noimage.png' : $thread['main_image']); ?>" alt="">
+                                        </a>
+                                        <span>
+                                            <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), 'News', array('class' => 'label-1')); ?>
+                                        </span>
+                                    </div>                                         
+                                    <div class="item-content"> 
+                                        <div class="title-left title-style04 underline04"> 
+                                            <h3>
+                                                <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), '<strong>Migrant</strong> Crisis'); ?>
+                                            </h3> 
+                                        </div>                                             
+                                        <p><a href="#" target="_blank" class="external-link">The proposal involves resettling one Syrian refugee in Europe for each</a></p> 
+                                        <p><a href="#" target="_blank" class="external-link">The U.N. says the mass return of refugees to a third country would</a></p> 
+                                        <div>
+                                            <?php echo anchor("news/single_page/?id=" . $this->encrypt->encode($nf_id, 'Jfmamjjas0nd'), '<span class="read-more">Read More</span>', array('class' => 'label-1', 'target' => '_blank')); ?>
+                                        </div>                                             
+                                    </div>                                         
+                                </div>                                     
+                                <!-- End .item -->                                     
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
                 </div>                                 
                 <!--========== END .NEWS ==========-->                                 
             </div>                             
             <!--========== END .COL-MD-6 ==========-->                             
-            <!--========== BEGIN .COL-MD-6 ==========-->                             
-            <div class="col-sm-6 col-md-6"> 
-                <!--========== BEGIN .NEWS==========-->                                 
-                <div class="news"> 
-                    <!-- Begin .item-->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image03.jpg" alt="">
-                            </a>
-                            <span><a class="label-5" href="tech-science.html">Science</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Indonesia</strong></a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Image caption Belitung in Indonesia was the best place to witness...</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">Millions of people across Indonesia and Pacific have experienced a total</a></p> 
-                            <div>
-                                <a href="tech-science.html" target="_blank"><span class="read-more">Tech-Science</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item-->                                     
-                    <!-- Begin .item -->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image04.jpg" alt="">
-                            </a>
-                            <span><a class="label-2" href="health.html">Health</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Global</strong> Health</a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Global health has been defined as an area of study and research, that</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">Everyone has the right to a standard of living adequate for the health and</a> </p> 
-                            <div>
-                                <a href="health.html" target="_blank"><span class="read-more">Health</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item -->                                     
-                </div>                                 
-                <!--========== END .NEWS ==========-->                                 
-            </div>                             
-            <!--========== END .COL-MD-6 ==========-->       
-            <!--========== BEGIN .COL-MD-6 ==========-->                             
-            <div class="col-sm-6 col-md-6"> 
-                <!--========== BEGIN .NEWS==========-->                                 
-                <div class="news"> 
-                    <!-- Begin .item-->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image03.jpg" alt="">
-                            </a>
-                            <span><a class="label-5" href="tech-science.html">Science</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Indonesia</strong></a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Image caption Belitung in Indonesia was the best place to witness...</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">Millions of people across Indonesia and Pacific have experienced a total</a></p> 
-                            <div>
-                                <a href="tech-science.html" target="_blank"><span class="read-more">Tech-Science</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item-->                                     
-                    <!-- Begin .item -->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image04.jpg" alt="">
-                            </a>
-                            <span><a class="label-2" href="health.html">Health</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Global</strong> Health</a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Global health has been defined as an area of study and research, that</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">Everyone has the right to a standard of living adequate for the health and</a> </p> 
-                            <div>
-                                <a href="health.html" target="_blank"><span class="read-more">Health</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item -->                                     
-                </div>                                 
-                <!--========== END .NEWS ==========-->                                 
-            </div>                             
-            <!--========== END .COL-MD-6 ==========-->  
-            <!--========== BEGIN .COL-MD-6 ==========-->                             
-            <div class="col-sm-6 col-md-6"> 
-                <!--========== BEGIN .NEWS==========-->                                 
-                <div class="news"> 
-                    <!-- Begin .item-->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image03.jpg" alt="">
-                            </a>
-                            <span><a class="label-5" href="tech-science.html">Science</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Indonesia</strong></a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Image caption Belitung in Indonesia was the best place to witness...</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">Millions of people across Indonesia and Pacific have experienced a total</a></p> 
-                            <div>
-                                <a href="tech-science.html" target="_blank"><span class="read-more">Tech-Science</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item-->                                     
-                    <!-- Begin .item -->                                     
-                    <div class="item"> 
-                        <div class="item-image-1">
-                            <a class="img-link" href="#">
-                                <img class="img-responsive img-full" src="themes/frontend/news_part/images/index_800x400-image04.jpg" alt="">
-                            </a>
-                            <span><a class="label-2" href="health.html">Health</a></span>
-                        </div>                                         
-                        <div class="item-content"> 
-                            <div class="title-left title-style04 underline04"> 
-                                <h3><a href="#"><strong>Global</strong> Health</a></h3> 
-                            </div>                                             
-                            <p><a href="#" target="_blank" class="external-link">Global health has been defined as an area of study and research, that</a></p> 
-                            <p><a href="#" target="_blank" class="external-link">Everyone has the right to a standard of living adequate for the health and</a> </p> 
-                            <div>
-                                <a href="health.html" target="_blank"><span class="read-more">Health</span></a>
-                            </div>                                             
-                        </div>                                         
-                    </div>                                     
-                    <!-- End .item -->                                     
-                </div>                                 
-                <!--========== END .NEWS ==========-->                                 
-            </div>                             
-            <!--========== END .COL-MD-6 ==========-->  
+
+
+            <div class="col-12">
+                <div class="blog-pagination d-flex">
+                    <?php echo $pagination; ?>
+                </div>
+            </div>
         </div>                         
     </div>                     
 </section>

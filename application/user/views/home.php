@@ -19,16 +19,17 @@ $about_myself = $aboutus[0];
 
 
 $about_timeline = $abt_timeline[0];
-$auHeaderTitle = $auHeaderSubtitle = $auContentMainTitle = $auContentSubTitle = $auContent = $auContentImage = $auSliderImage = '';
-if (isset($aboutus) && !empty($aboutus)) {
-    $auHeaderTitle = $aboutus[0]['au_header_title'];
-    $auHeaderSubtitle = $aboutus[0]['au_header_subtitle'];
-    $auContentMainTitle = $aboutus[0]['au_content_main_title'];
-    $auContentSubTitle = $aboutus[0]['au_content_sub_title'];
-    $auContent = $aboutus[0]['au_content'];
-    $auContentImage = $aboutus[0]['au_content_image'];
-    $auSliderImage = $aboutus[0]['au_slider_image'];
-}
+
+//$auHeaderTitle = $auHeaderSubtitle = $auContentMainTitle = $auContentSubTitle = $auContent = $auContentImage = $auSliderImage = '';
+//if (isset($aboutus) && !empty($aboutus)) {
+//    $auHeaderTitle = $aboutus[0]['au_header_title'];
+//    $auHeaderSubtitle = $aboutus[0]['au_header_subtitle'];
+//    $auContentMainTitle = $aboutus[0]['au_content_main_title'];
+//    $auContentSubTitle = $aboutus[0]['au_content_sub_title'];
+//    $auContent = $aboutus[0]['au_content'];
+//    $auContentImage = $aboutus[0]['au_content_image'];
+//    $auSliderImage = $aboutus[0]['au_slider_image'];
+//}
 ?>
 
 <?php include APPPATH . 'views/template/home_slider.php'; ?>
